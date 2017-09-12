@@ -101,17 +101,17 @@ func (s *Snake) move() {
 	}
 	s.head.y += dY
 	s.head.x += dX
-	if s.head.y > 10 {
+	if s.head.y > size {
 		s.head.y = 1
 	}
 	if s.head.y < 1 {
-		s.head.y = 10
+		s.head.y = size
 	}
-	if s.head.x > 10 {
+	if s.head.x > size {
 		s.head.x = 1
 	}
 	if s.head.x < 1 {
-		s.head.x = 10
+		s.head.x = size
 	}
 }
 
@@ -172,19 +172,12 @@ func run() {
 		panic(err)
 	}
 
-	drawn := false
 	last := time.Now()
 	frequency := float64(0.25)
 	snake.generateNextPoint()
 	for !win.Closed() {
 		win.Clear(colornames.Aliceblue)
 		imd := imdraw.New(nil)
-		if !drawn {
-			draw(imd)
-			imd.Draw(win)
-			win.Update()
-			drawn = true
-		}
 
 		if win.Pressed(pixelgl.KeyLeft) && snake.direction != 'r' {
 			snake.nextDirection = 'l'
